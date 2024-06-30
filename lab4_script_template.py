@@ -75,15 +75,20 @@ def generate_port_traffic_report(log_file, port_number):
     df = pd.DataFrame(matching_records, columns=['Log Records'])
     df.to_csv(f'port_{port_number}_traffic_report.csv', index=False)
     print(f'[Report] Port traffic report generated for port {port_number}: port_{port_number}_traffic_report.csv')
-    return matching_records
 
 # TODO: Step 11
 def generate_invalid_user_report(log_file):
-    return
+    matching_records, _ = filter_log_by_regex(log_file, r'invalid user', ignore_case=True)
+    df = pd.DataFrame(matching_records, columns=['Log Records'])
+    df.to_csv('invalid_user_report.csv', index=False)
+    print('[Report] Invalid user report generated: invalid_user_report.csv')
 
 # TODO: Step 12
 def generate_source_ip_log(log_file, ip_address):
-    return
+    matching_records, _ = filter_log_by_regex(log_file, rf'{ip_address}', ignore_case=False)
+    df = pd.DataFrame(matching_records, columns=['Log Records'])
+    df.to_csv(f'source_ip_{ip_address.replace(".", "_")}_log.csv', index=False)
+    print(f'[Report] Source IP log generated for {ip_address}: source_ip_{ip_address.replace(".", "_")}_log.csv')
 
 if __name__ == '__main__':
     main()
