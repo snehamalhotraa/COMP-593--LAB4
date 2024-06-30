@@ -1,6 +1,15 @@
+import sys
+import re
+import pandas as pd
 
 def main():
     log_file = get_log_file_path_from_cmd_line()
+
+    records, _ = filter_log_by_regex(log_file, r'sshd', ignore_case=True, print_summary=True, print_records=True)
+    port_traffic = tally_port_traffic(log_file)
+    generate_port_traffic_report(log_file, 22)  
+    generate_invalid_user_report(log_file)
+    generate_source_ip_log(log_file, '220.195.35.40')
 
 # TODO: Step 3
 def get_log_file_path_from_cmd_line():
