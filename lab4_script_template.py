@@ -12,8 +12,20 @@ def main():
     generate_source_ip_log(log_file, '220.195.35.40')
 
 # TODO: Step 3
-def get_log_file_path_from_cmd_line():
-    return
+def get_log_file_path_from_cmd_line(param_number):
+    if len(sys.argv) <= param_number:
+        print(f"[Error] Command line parameter #{param_number} is missing.")
+        sys.exit(1)
+    log_file_path = sys.argv[param_number]
+    try:
+        with open(log_file_path, 'r') as file:
+            pass
+    except FileNotFoundError:
+        print(f"[Error] The specified file does not exist: {log_file_path}")
+        sys.exit(1)
+
+    return log_file_path
+
 
 # TODO: Steps 4-7
 def filter_log_by_regex(log_file, regex, ignore_case=True, print_summary=False, print_records=False):
